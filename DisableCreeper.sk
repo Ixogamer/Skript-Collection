@@ -1,0 +1,6 @@
+#Disable Creeper explosions if the Creeper is not charged.
+on explosion:
+	if event-entity is a creeper:
+		make a safe explosion of force 5 at event-entity
+		if creeper is not charged:
+			cancel event

@@ -1,0 +1,5 @@
+#When a player dies, remove 10% of their money.
+on death:
+    if victim is a player:
+        send "&cHas perdido &7%victim's balance * 0.10%$ (10%%) &cal morir por %event-damagecause%" to victim
+        remove (victim's balance * 0.10) from victim's balance

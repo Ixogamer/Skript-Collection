@@ -1,0 +1,4 @@
+#When a player dies, spawn lighting at the death location.
+on death of player:
+	loop 10 times:
+		strike lightning effect at victim

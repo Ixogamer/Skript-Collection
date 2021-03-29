@@ -1,0 +1,8 @@
+#Creates a /handcuffs command. When you right click a player, he gets applied a potion effect.
+command /handcuffs:
+	trigger:
+		give 1 stick named "&4&lHandcuffs" with lore "&9Stop right there" to player
+on right click on player:
+	set {_p} to clicked entity
+	player's tool is stick named "&4&lHandcuffs" with lore "&9Stop right there":
+		apply potion of slowness of tier 100 to {_p} for 10 seconds
