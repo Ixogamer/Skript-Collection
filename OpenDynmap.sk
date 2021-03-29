@@ -1,0 +1,6 @@
+#Opens a link to our Dynmap
+command /abrirdynmap:
+	description: Envía el link de nuestro Dynmap
+	cooldown: 10 seconds
+	trigger:
+		send "&6https://cutt.ly/mapadinamico" to player
