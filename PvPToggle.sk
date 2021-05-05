@@ -1,0 +1,24 @@
+# Players can type /pvp to disable pvp for themselves only. Other players will only be able to attack that person if he has his pvp status on. Players with pvp status off can also not attack other people, even if their pvp status is on.
+ 
+command /pvp:
+    permission: pvptoggle.use
+    permission message: "&cYou are not allowed to use this command!"
+    trigger:
+        if {pvptoggle.%player%} is false:
+            set {pvptoggle.%player%} to true
+            send "&eTu estado de PvP está &aencendido.&e Podrás atacar a otros jugadores que hayan activado el PvP."
+        else:
+            set {pvptoggle.%player%} to false
+            send "&eTu estado de PvP está &capagado.&e No podrás atacar a otros jugadores, y vice versa."
+on join:
+    set {pvptoggle.%player%} to false
+    send "&eTu estado de PvP está &capagado.&e No podrás atacar a otros jugadores, y vice versa."
+on damage of player:
+    if attacker is a player:
+        if {pvptoggle.%attacker%} is false:
+            cancel event
+            send "&e¡Para atacar a otros jugadores, escribe &a/pvp&e!" to attacker
+        if {pvptoggle.%attacker%} is true:
+            if {pvptoggle.%victim%} is false:
+                cancel event
+                send "&e¡Este jugador tiene el PvP &cdesactivado&e!" to attacker
