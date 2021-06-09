@@ -1,0 +1,37 @@
+# Creado por https://github.com/Ixogamer | Tiempo utilizado: 5h  | Cartera de NANO: https://www.3words.link/ixo
+# Los jugadores pueden escribir /pvp para deshabilitar pvp solo para ellos. Otros jugadores solo podrán atacar a esa persona si tiene el pvp activado. Los jugadores con el pvp desactivado tampoco pueden atacar a otras personas, incluso si su pvp está activado.
+command /pvp <player=%sender%>:
+	permission: pvptoggle.use
+	permission message: "&c¡No tienes permiso para utilizar ese comando!"
+	cooldown: 1 seconds
+	trigger:
+		if arg-1 = sender:
+			if (metadata tag "pvptoggle" of player) is false:
+				set metadata tag "pvptoggle" of player to true
+				send "&eTu estado de PvP está &aencendido.&e Podrás atacar a otros jugadores que hayan activado el PvP." to arg-1
+			else:
+				set metadata tag "pvptoggle" of player to false
+				send "&eTu estado de PvP está &capagado.&e No podrás atacar a otros jugadores, y vice versa." to arg-1
+		else:
+			if player doesn't have permission "pvptoggle.admin":
+				send "&cNo tienes permiso para cambiar el estado de PvP de otros jugadores."
+				stop trigger
+			else:
+				if (metadata tag "pvptoggle" of player) is false:
+					set metadata tag "pvptoggle" of player to true
+					send "&eTu estado de PvP está &aencendido.&e Podrás atacar a otros jugadores que hayan activado el PvP." to arg-1
+				else:
+					set metadata tag "pvptoggle" of player to false
+					send "&eTu estado de PvP está &capagado.&e No podrás atacar a otros jugadores, y vice versa." to arg-1
+
+on join:
+	set metadata tag "pvptoggle" of player to true
+	send "&eTu estado de PvP está &aencendido.&e Podrás atacar a otros jugadores que hayan activado el PvP."
+on damage of player:
+	if attacker is a player:
+		if (metadata tag "pvptoggle" of attacker) is false:
+			cancel event
+			send "&e¡Para atacar a otros jugadores, escribe &a/pvp&e!" to attacker
+		else if (metadata tag "pvptoggle" of victim) is false:
+			cancel event
+			send "&e¡Este jugador tiene el PvP &cdesactivado&e!" to attacker
