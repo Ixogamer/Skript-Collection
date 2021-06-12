@@ -1,6 +1,4 @@
-# skript-collection
+# Skript-Collection
 Skript Scripts i've created for IPXCraft, my Minecraft Server.
 
-Some scripts use:
-- Skript-Reflect
-- SkQuery
+All required dependencies will be cited on the comment's (#) of the skript or below here:
